@@ -2,14 +2,9 @@ import java.util.LinkedList;
 
 public class FCFS extends Algo {
 
-    private LinkedList<Process> executeQueue;// list of processes waiting to execute
+    public FCFS(LinkedList<Process> originalList,boolean showProcessing) {
 
-    public FCFS(LinkedList<Process> originalList) {
-
-        super(originalList, "First Come First Serve");
-
-        executeQueue = new LinkedList<>();// modified list 
-
+        super(originalList, "First Come First Serve",showProcessing);
     }
 
     public void runProcesses() {
@@ -21,12 +16,13 @@ public class FCFS extends Algo {
 
             // System.out.println("J: " + index + " Cycle: " + cycle + " SIze: " +
             // processList.size());
+            if (showProcessing){
             System.out.println("Sytem Time: " + cycle + "-------------------------------------------");
-
+            }
                 while (index != processList.size() && processList.get(index).getArrivalTime() == cycle ) {// && operator has short-circuiting behavior. If the left operand is false, the right operand is not evaluated.
-
+                    if (showProcessing){
                     System.out.println("P[" + processList.get(index).getPid() + "] Arrives");
-
+                    }
                     executeQueue.addLast(processList.get(index));
 
                     index++;
@@ -59,17 +55,19 @@ public class FCFS extends Algo {
                 liveProcess.decrementBurstTime(1);
 
                 if (liveProcess.getBurstTimeLeft() == 0) {
+                    if(showProcessing){
                     System.out.println("P[" + liveProcess.getPid() + "] Completed");
+                    }
                     liveProcess.calcTurnaroundTime(cycle + 1);
                     liveProcess.calcWaitTime();
                     executeQueue.removeFirst();
-                } else {
+                } else if(showProcessing) {
 
                     System.out.println("P[" + liveProcess.getPid() + "] Executing");
 
                 }
 
-            } else {
+            } else if(showProcessing){
                 System.out.println("P[" + liveProcess.getPid() + "] Waiting");
             }
 

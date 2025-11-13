@@ -33,6 +33,19 @@ public class Process {
         started = false;
     }
 
+    public Process(Process newProcess){
+        pid = newProcess.pid;
+        arrivalTime = newProcess.arrivalTime;
+        burstTime = newProcess.burstTime;
+        burstTimeLeft = newProcess.burstTimeLeft;
+        priority = newProcess.priority;
+        turnaroundTime = newProcess.turnaroundTime;
+        waitingime = newProcess.waitingime;
+        responseTime = newProcess.responseTime;
+        started = newProcess.started;
+
+    }
+
     public int getArrivalTime() {
         return arrivalTime;
     }
@@ -104,7 +117,7 @@ public class Process {
         return this;
     }
 
-    public Process createProcessRandom() {
+    public Process createProcessRandom(boolean showProcesses) {
         this.pid = processCount;
         // this.arrivalTime = (int)((Math.random() * 3) + processCount);
         this.arrivalTime = (int) ((Math.random() * 10) + processCount);
@@ -114,11 +127,14 @@ public class Process {
         this.burstTime = (int) ((Math.random() * 16) + 1);
         this.priority = (int) ((Math.random() * 5) + 1);
 
+        if (showProcesses){
         System.out.println("P [" + this.pid + "]--------------------------------------------------");
         System.out.println("Arrival Time: " + this.arrivalTime);
-        System.out.println("Burst Time: " + this.burstTime);
-        this.burstTimeLeft = burstTime;
+        System.out.println("Burst Time: " + this.burstTime);   
         System.out.println("Priority: " + this.priority);
+    }
+
+        this.burstTimeLeft = burstTime;
 
         return this;
     }

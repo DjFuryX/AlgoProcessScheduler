@@ -15,10 +15,10 @@ public class App {
             try {
                 processNum = scanner.nextInt();
 
-                if (processNum >0){
-                     break;
+                if (processNum > 0) {
+                    break;
                 }
-               
+
             } catch (InputMismatchException e) {
                 System.out.println("Invalid input.");
                 scanner.next(); // Consume the invalid input to clear the scanner buffer
@@ -53,7 +53,7 @@ public class App {
 
             if (option == 1) {
 
-                processList.addLast(new Process().createProcessRandom());
+                processList.addLast(new Process().createProcessRandom(false));
 
             } else {
 
@@ -64,11 +64,11 @@ public class App {
 
         // Sort list by arrival time using bubble sort
         boolean swapped = false;
-        int size = processList.size()-1;
+        int size = processList.size() - 1;
 
-        for (int i = 0; i < size ; i++) {
+        for (int i = 0; i < size; i++) {
             swapped = false;
-            for (int j = 0; j < size -i; j++) {
+            for (int j = 0; j < size - i; j++) {
                 if (processList.get(j).getArrivalTime() >= processList.get(j + 1).getArrivalTime()) {
                     Process temp = processList.get(j);
                     processList.set(j, processList.get(j + 1));
@@ -82,20 +82,18 @@ public class App {
                 break;
             }
         }
-        
 
         // Process alogorithms
         //
-       // FCFS fcfs = new FCFS(processList);
+        FCFS fcfs = new FCFS(processList, false);
 
-        //fcfs.runProcesses();// simulate first come first serve algorithm
-       // fcfs.showProcessMetrics(); // show alogortihm statistics
-        
-        PriorityNP pnp = new PriorityNP(processList);
+        fcfs.runProcesses();// simulate first come first serve algorithm
+        fcfs.showProcessMetrics(); // show alogortihm statistics
+
+        PriorityNP pnp = new PriorityNP(processList, false);
 
         pnp.runProcesses();
         pnp.showProcessMetrics();
-
 
         scanner.close();// for user input
         Process.closeScanner();

@@ -2,13 +2,9 @@ import java.util.LinkedList;
 
 public class PriorityNP extends Algo {
 
-    private LinkedList<Process> executeQueue;// list of processes waiting to execute
+    PriorityNP(LinkedList<Process> originalList, boolean showProcessing) {
 
-    PriorityNP(LinkedList<Process> originalList) {
-
-        super(originalList, "priority Non-Preemptive");
-
-        executeQueue = new LinkedList<>();
+        super(originalList, "priority Non-Preemptive", showProcessing);
     }
 
     public void runProcesses() {
@@ -18,12 +14,14 @@ public class PriorityNP extends Algo {
         int index = 0;
 
         while (true) {
-            System.out.println("Sytem Time: " + cycle + "-------------------------------------------");
-
+            if (showProcessing) {
+                System.out.println("Sytem Time: " + cycle + "-------------------------------------------");
+            }
             while (index != processList.size() && processList.get(index).getArrivalTime() == cycle) {
 
-                System.out.println("P[" + processList.get(index).getPid() + "] Arrives");
-
+                if (showProcessing) {
+                    System.out.println("P[" + processList.get(index).getPid() + "] Arrives");
+                }
                 executeQueue.addLast(processList.get(index));// all process with the same arrival time added
 
                 index++;
@@ -44,17 +42,17 @@ public class PriorityNP extends Algo {
 
         Process minProcess = null;
 
-        if (executeQueue.size() != 0 ) {
+        if (executeQueue.size() != 0) {
 
             minProcess = executeQueue.getFirst();
             for (int x = 1; x < executeQueue.size(); x++) { // get process with lowest priority
 
                 if (executeQueue.get(x).getPriority() < minProcess.getPriority()) {
 
-                    if (!minProcess.Started()){
+                    if (!minProcess.Started()) {
                         minProcess = executeQueue.get(x);
                     }
-                  
+
                 }
             }
 
@@ -75,17 +73,19 @@ public class PriorityNP extends Algo {
                 liveProcess.decrementBurstTime(1);
 
                 if (liveProcess.getBurstTimeLeft() == 0) {
-                    System.out.println("P[" + liveProcess.getPid() + "] Completed");
+                    if (showProcessing) {
+                        System.out.println("P[" + liveProcess.getPid() + "] Completed");
+                    }
                     liveProcess.calcTurnaroundTime(cycle + 1);
                     liveProcess.calcWaitTime();
                     executeQueue.remove(i);
-                } else {
+                } else if (showProcessing) {
 
                     System.out.println("P[" + liveProcess.getPid() + "] Executing");
 
                 }
 
-            } else {
+            } else if (showProcessing) {
                 System.out.println("P[" + liveProcess.getPid() + "] Waiting");
             }
 
