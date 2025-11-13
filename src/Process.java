@@ -11,7 +11,7 @@ public class Process {
                            // running on Processor
     private int burstTimeLeft; // Amount of time left to complete a task that is partially complete
 
-    private int priority; // Level of importance/urgency given to a process
+    private int priority; // Level of importance/urgency given to a process (lower is preferred)
 
     private int turnaroundTime; // time finished – arrival time
     private int waitingime; // turnaround time – service time
@@ -19,7 +19,7 @@ public class Process {
 
     private boolean started;//
 
-    private static Scanner scanner;
+    private static Scanner scanner;// for user input
 
     public Process() {// default constructor
         pid = 0;
@@ -48,7 +48,7 @@ public class Process {
     public void calcResponseTime(int firstCPUtime) {
         if (!started) {
             this.responseTime = firstCPUtime - this.arrivalTime;
-            System.out.println("Response Time: "+responseTime+" Cycle: "+firstCPUtime+"Arrival Time: "+this.arrivalTime);
+            //System.out.println("Response Time: "+responseTime+" Cycle: "+firstCPUtime+"Arrival Time: "+this.arrivalTime);
             started = true;
         }
     }
@@ -79,6 +79,10 @@ public class Process {
         return turnaroundTime;
     }
 
+    public boolean Started(){
+        return started;
+    }
+
     public int getWaitingime() {
         return waitingime;
     }
@@ -105,7 +109,7 @@ public class Process {
         // this.arrivalTime = (int)((Math.random() * 3) + processCount);
         this.arrivalTime = (int) ((Math.random() * 10) + processCount);
 
-        processCount = processCount + 1;
+        processCount++;
 
         this.burstTime = (int) ((Math.random() * 16) + 1);
         this.priority = (int) ((Math.random() * 5) + 1);
@@ -128,7 +132,7 @@ public class Process {
             try {
                 value = scanner.nextInt();
 
-                if (value > 0) {
+                if (value >= 0) {
                     return value;
                 } else {
                     System.out.println("Value must be greater than 1");
@@ -143,7 +147,6 @@ public class Process {
     }
 
     public void display() {
-
 
         System.out.println("P[" + this.pid + "]\t\t" + this.arrivalTime + "\t\t"+ this.burstTime + "\t\t" + this.priority+"\t\t"+this.waitingime
         +"\t\t"+this.turnaroundTime+"\t\t"+this.responseTime);

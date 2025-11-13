@@ -14,8 +14,11 @@ public class App {
 
             try {
                 processNum = scanner.nextInt();
-                break;
 
+                if (processNum >0){
+                     break;
+                }
+               
             } catch (InputMismatchException e) {
                 System.out.println("Invalid input.");
                 scanner.next(); // Consume the invalid input to clear the scanner buffer
@@ -83,15 +86,18 @@ public class App {
 
         // Process alogorithms
         //
-        FCFS fcfs = new FCFS(processList);
+       // FCFS fcfs = new FCFS(processList);
 
-        fcfs.runProcesses();
+        //fcfs.runProcesses();// simulate first come first serve algorithm
+       // fcfs.showProcessMetrics(); // show alogortihm statistics
         
-        
-        fcfs.showProcessMetrics();
-        
+        PriorityNP pnp = new PriorityNP(processList);
 
-        scanner.close();
+        pnp.runProcesses();
+        pnp.showProcessMetrics();
+
+
+        scanner.close();// for user input
         Process.closeScanner();
 
     }

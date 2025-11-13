@@ -1,7 +1,7 @@
 import java.util.LinkedList;
 
-public abstract class Algo {
-    protected String name; // name of scheduling algorithm
+public abstract class Algo { // abstract algorithm class with all attributes and main methods
+    protected String name; // name of scheduling algorithm 
     protected int cycle; // current execution time unit
     protected float avgWaitingTime;
     protected float avgTurnaroundTime;
@@ -11,9 +11,9 @@ public abstract class Algo {
     protected float throughput; // the number of processes that complete their execution per time unit (total
                                 // Processes/cycle)
 
-    LinkedList<Process> processList;
+    LinkedList<Process> processList; // list of all processes 
 
-    public Algo() {
+    public Algo() {//default constructor
         cycle = 0;
         avgWaitingTime = 0;
         avgTurnaroundTime = 0;
@@ -24,7 +24,7 @@ public abstract class Algo {
         processList = new LinkedList<>();
     }
 
-    public Algo(LinkedList<Process> originalList, String algorithmName) {
+    public Algo(LinkedList<Process> originalList, String algorithmName) {// primary constrcutor
 
         cycle = 0;
         avgWaitingTime = 0;
@@ -39,6 +39,32 @@ public abstract class Algo {
 
     }
 
-    public abstract void runProcesses();
+    public abstract void runProcesses();// main algorithm function
+
+    public void showProcessMetrics() {
+
+        System.out.println("\nProcess Metrics");
+        System.out.println(
+                "Process\t\tArrival Time\tBurst Time\tPriorty\t\tWaiting Time\tTurnaround Time\tResponse Time");
+        for (Process process : processList) {
+            process.display();
+
+            avgResponseTime += process.getResponseTime();
+            avgTurnaroundTime += process.getTurnaroundTime();
+            avgWaitingTime += process.getWaitingime();
+        }
+        int count = processList.size();
+
+        avgResponseTime /= count;
+        avgTurnaroundTime /= count;
+        avgWaitingTime /= count;
+        throughput = (count / (float) cycle);
+        System.out.println("\nKey Stats");
+        System.out.println("Average Waiting Time\t\tAverage Turnaround Time\t\tAverage Response Time");
+        System.out.println(avgWaitingTime + "\t\t\t\t" + avgTurnaroundTime + "\t\t\t\t" + avgResponseTime);
+        System.out.println("Busy Count: " + cPU_BusyCount + " Cycles: " + cycle);
+        System.out.println("ThroughPut: " + throughput + " process/unit");
+
+    }// show algorithm stats
 
 }
