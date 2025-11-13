@@ -85,15 +85,21 @@ public class App {
 
         // Process alogorithms
         //
-        FCFS fcfs = new FCFS(processList, false);
+        FCFS fcfs = new FCFS(processList, true);
 
         fcfs.runProcesses();// simulate first come first serve algorithm
-        fcfs.showProcessMetrics(); // show alogortihm statistics
+        
 
         PriorityNP pnp = new PriorityNP(processList, false);
 
         pnp.runProcesses();
+
+        
+
+// show alogortihm statistics
+
         pnp.showProcessMetrics();
+        fcfs.showProcessMetrics(); 
 
         scanner.close();// for user input
         Process.closeScanner();

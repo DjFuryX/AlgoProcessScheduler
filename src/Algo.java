@@ -55,6 +55,7 @@ public abstract class Algo { // abstract algorithm class with all attributes and
 
     public void showProcessMetrics() {
 
+        System.out.println("\n===================" + name + "=========================");
         System.out.println("\nProcess Metrics");
         System.out.println(
                 "Process\t\tArrival Time\tBurst Time\tPriorty\t\tWaiting Time\tTurnaround Time\tResponse Time");

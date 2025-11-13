@@ -9,8 +9,9 @@ public class PriorityNP extends Algo {
 
     public void runProcesses() {
 
-        System.out.println("===================" + name + "=========================");
-
+        if (showProcessing) {
+            System.out.println("===================" + name + "=========================");
+        }
         int index = 0;
 
         while (true) {
