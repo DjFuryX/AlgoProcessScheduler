@@ -7,13 +7,18 @@ public class PriorityNP extends Algo {
         super(originalList, "priority Non-Preemptive", showProcessing);
     }
 
+    PriorityNP(boolean showProcessing) {
+
+        super( "priority Non-Preemptive", showProcessing);
+    }
+
     public void runProcesses() {
 
         if (showProcessing) {
             System.out.println("===================" + name + "=========================");
         }
-        int index = 0;
-
+   
+        int index =0;
         while (true) {
             if (showProcessing) {
                 System.out.println("Sytem Time: " + cycle + "-------------------------------------------");
@@ -32,7 +37,7 @@ public class PriorityNP extends Algo {
             evaluateProcess();
             cycle++;
 
-            if (executeQueue.size() == 0 && index == processList.size()) {
+            if (pCount == processList.size()) {
                 break;
             }
         }
@@ -50,7 +55,7 @@ public class PriorityNP extends Algo {
 
                 if (executeQueue.get(x).getPriority() < minProcess.getPriority()) {
 
-                    if (!minProcess.Started()) {
+                    if (!minProcess.Started()) { // check if process has not started to prevent interuption
                         minProcess = executeQueue.get(x);
                     }
 
@@ -80,6 +85,7 @@ public class PriorityNP extends Algo {
                     liveProcess.calcTurnaroundTime(cycle + 1);
                     liveProcess.calcWaitTime();
                     executeQueue.remove(i);
+                    pCount++;
                 } else if (showProcessing) {
 
                     System.out.println("P[" + liveProcess.getPid() + "] Executing");

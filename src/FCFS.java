@@ -2,6 +2,12 @@ import java.util.LinkedList;
 
 public class FCFS extends Algo {
 
+    
+     public FCFS( boolean showProcessing) {
+
+        super("First Come First Serve", showProcessing);
+    }
+
     public FCFS(LinkedList<Process> originalList, boolean showProcessing) {
 
         super(originalList, "First Come First Serve", showProcessing);
@@ -12,7 +18,7 @@ public class FCFS extends Algo {
 
             System.out.println("===================" + name + "=========================");
         }
-        int index = 0;
+        int index= 0;
         while (true) {
 
             // System.out.println("J: " + index + " Cycle: " + cycle + " SIze: " +
@@ -20,13 +26,12 @@ public class FCFS extends Algo {
             if (showProcessing) {
                 System.out.println("Sytem Time: " + cycle + "-------------------------------------------");
             }
-            while (index != processList.size() && processList.get(index).getArrivalTime() == cycle) {// && operator has
-                                                                                                     // short-circuiting
-                                                                                                     // behavior. If the
-                                                                                                     // left operand is
-                                                                                                     // false, the right
-                                                                                                     // operand is not
-                                                                                                     // evaluated.
+            /*
+             * && operator has  short-circuiting behavior. If the left operand is
+             * false, the right operand is notevaluated.
+             */
+            
+            while (index != processList.size() && processList.get(index).getArrivalTime() == cycle) {
                 if (showProcessing) {
                     System.out.println("P[" + processList.get(index).getPid() + "] Arrives");
                 }
@@ -38,7 +43,7 @@ public class FCFS extends Algo {
             evaluateProcess();
             cycle++;
 
-            if (executeQueue.size() == 0 && index == processList.size()) {
+            if (pCount == processList.size()) {
                 break;
             }
         }
@@ -64,6 +69,7 @@ public class FCFS extends Algo {
                 if (liveProcess.getBurstTimeLeft() == 0) {
                     if (showProcessing) {
                         System.out.println("P[" + liveProcess.getPid() + "] Completed");
+                        pCount++;
                     }
                     liveProcess.calcTurnaroundTime(cycle + 1);
                     liveProcess.calcWaitTime();

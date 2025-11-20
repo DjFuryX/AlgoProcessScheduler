@@ -11,6 +11,8 @@ public abstract class Algo { // abstract algorithm class with all attributes and
     protected float throughput; // the number of processes that complete their execution per time unit (total
                                 // Processes/cycle)
 
+    int pCount; //number of completed processes
+
     protected LinkedList<Process> processList; // list of all processes
 
     protected LinkedList<Process> executeQueue;// list of processes waiting to execute
@@ -25,7 +27,10 @@ public abstract class Algo { // abstract algorithm class with all attributes and
         cPU_BusyCount = 0;
         cPU_Usage = 0;
         throughput = 0;
+        pCount = 0;
+
         showProcessing = true;
+        name = "NotAssigned";
         processList = new LinkedList<>();
         executeQueue = new LinkedList<>();
     }
@@ -40,6 +45,7 @@ public abstract class Algo { // abstract algorithm class with all attributes and
         cPU_BusyCount = 0;
         cPU_Usage = 0;
         throughput = 0;
+        pCount = 0;
         name = algorithmName;
         processList = new LinkedList<>();
         executeQueue = new LinkedList<>();
@@ -51,7 +57,30 @@ public abstract class Algo { // abstract algorithm class with all attributes and
 
     }
 
+    public Algo(String algorithmName, boolean showProcessingQueue) {// primary
+                                                                    // constrcutor
+
+        cycle = 0;
+        avgWaitingTime = 0;
+        avgTurnaroundTime = 0;
+        avgResponseTime = 0;
+        cPU_BusyCount = 0;
+        cPU_Usage = 0;
+        throughput = 0;
+        pCount = 0;
+        name = algorithmName;
+        processList = new LinkedList<>();
+        executeQueue = new LinkedList<>();
+        showProcessing = showProcessingQueue;
+    }
+
     public abstract void runProcesses();// main algorithm function
+
+    public void insertProcess(Process newProcess) {// adds a process to the main process list
+
+        executeQueue.addLast(newProcess); // process is added to the end of the list
+
+    }
 
     public void showProcessMetrics() {
 

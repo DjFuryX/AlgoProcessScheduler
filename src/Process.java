@@ -33,7 +33,7 @@ public class Process {
         started = false;
     }
 
-    public Process(Process newProcess){
+    public Process(Process newProcess) {
         pid = newProcess.pid;
         arrivalTime = newProcess.arrivalTime;
         burstTime = newProcess.burstTime;
@@ -61,13 +61,14 @@ public class Process {
     public void calcResponseTime(int firstCPUtime) {
         if (!started) {
             this.responseTime = firstCPUtime - this.arrivalTime;
-            //System.out.println("Response Time: "+responseTime+" Cycle: "+firstCPUtime+"Arrival Time: "+this.arrivalTime);
+            // System.out.println("Response Time: "+responseTime+" Cycle:
+            // "+firstCPUtime+"Arrival Time: "+this.arrivalTime);
             started = true;
         }
     }
 
-    public void calcWaitTime(){
-        this.waitingime = this.turnaroundTime -  this.burstTime;
+    public void calcWaitTime() {
+        this.waitingime = this.turnaroundTime - this.burstTime;
     }
 
     public void decrementBurstTime(int amount) {
@@ -86,13 +87,11 @@ public class Process {
         return pid;
     }
 
-    
-
     public int getTurnaroundTime() {
         return turnaroundTime;
     }
 
-    public boolean Started(){
+    public boolean Started() {
         return started;
     }
 
@@ -110,9 +109,8 @@ public class Process {
         System.out.println("P [" + this.pid + "]--------------------------------------------------");
         this.arrivalTime = getUserInputInt("Please enter process Arrival Time: ");
         this.burstTime = getUserInputInt("Please enter process Burst Time: ");
-        this.burstTimeLeft = burstTime;
         this.priority = getUserInputInt("Please enter process Priority: ");
-
+        this.burstTimeLeft = burstTime;
         processCount++;
         return this;
     }
@@ -121,20 +119,18 @@ public class Process {
         this.pid = processCount;
         // this.arrivalTime = (int)((Math.random() * 3) + processCount);
         this.arrivalTime = (int) ((Math.random() * 10) + processCount);
-
-        processCount++;
-
         this.burstTime = (int) ((Math.random() * 16) + 1);
-        this.priority = (int) ((Math.random() * 5) + 1);
+        this.priority = (int) ((Math.random() * 5) + 1); // priority is from 1 to 5
 
-        if (showProcesses){
-        System.out.println("P [" + this.pid + "]--------------------------------------------------");
-        System.out.println("Arrival Time: " + this.arrivalTime);
-        System.out.println("Burst Time: " + this.burstTime);   
-        System.out.println("Priority: " + this.priority);
-    }
+        if (showProcesses) {
+            System.out.println("P [" + this.pid + "]--------------------------------------------------");
+            System.out.println("Arrival Time: " + this.arrivalTime);
+            System.out.println("Burst Time: " + this.burstTime);
+            System.out.println("Priority: " + this.priority);
+        }
 
         this.burstTimeLeft = burstTime;
+        processCount++;
 
         return this;
     }
@@ -164,8 +160,9 @@ public class Process {
 
     public void display() {
 
-        System.out.println("P[" + this.pid + "]\t\t" + this.arrivalTime + "\t\t"+ this.burstTime + "\t\t" + this.priority+"\t\t"+this.waitingime
-        +"\t\t"+this.turnaroundTime+"\t\t"+this.responseTime);
+        System.out.println("P[" + this.pid + "]\t\t" + this.arrivalTime + "\t\t" + this.burstTime + "\t\t"
+                + this.priority + "\t\t" + this.waitingime
+                + "\t\t" + this.turnaroundTime + "\t\t" + this.responseTime);
     }
 
     public static void closeScanner() {

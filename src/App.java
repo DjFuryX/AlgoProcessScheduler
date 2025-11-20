@@ -84,23 +84,35 @@ public class App {
         }
 
         // Process alogorithms
-        //
+        // First Come First Serve
         FCFS fcfs = new FCFS(processList, true);
 
-        fcfs.runProcesses();// simulate first come first serve algorithm
+      // fcfs.runProcesses();// simulate first come first serve algorithm
         
-
+        // Non Pre-emptive Priority
         PriorityNP pnp = new PriorityNP(processList, false);
 
-        pnp.runProcesses();
+      // pnp.runProcesses();
 
-        
+        RoundRobin rr = new RoundRobin(processList, 2, true);
 
-// show alogortihm statistics
+        rr.runProcesses();
+        rr.showProcessMetrics();
 
-        pnp.showProcessMetrics();
-        fcfs.showProcessMetrics(); 
 
+
+        //MultiLevel Queue
+
+        MLqueue MLQ = new MLqueue(processList, true);
+
+        //MLQ.runProcesses();
+
+
+        // show alogortihm statistics
+        // pnp.showProcessMetrics();
+      //   fcfs.showProcessMetrics(); 
+        // MLQ.showProcessMetrics();
+    
         scanner.close();// for user input
         Process.closeScanner();
 
