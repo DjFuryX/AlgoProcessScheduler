@@ -3,16 +3,15 @@ import java.util.LinkedList;
 
 public class RoundRobin extends Algo {
 
-    private int quantum;
-    private int timeLeft;
+    private int quantum; // time slice of roun robin algorithim
+    private int quantumLeft; //time slice left before rotation
 
     public RoundRobin(LinkedList<Process> originalList, int q, boolean showProcessing) {
         super(originalList, "Round Robin (q=" + q + ")", showProcessing);
         this.quantum = q;
-        this.timeLeft = q;
+        this.quantumLeft = q;
     }
 
-    @Override
     public void runProcesses() {
 
         if (showProcessing) {
@@ -50,25 +49,44 @@ public class RoundRobin extends Algo {
         // CPU idle
         if (executeQueue.size() == 0) {
             if (showProcessing) System.out.println("CPU Idle");
-            timeLeft = quantum;
+            quantumLeft = quantum;
             return;
         }
 
+        Process minProcess = null;
+
+        if (executeQueue.size() != 0) {
+
+            minProcess = executeQueue.getFirst();
+            for (int x = 1; x < executeQueue.size(); x++) { // get process with lowest priority
+
+                if (executeQueue.get(x).getPriority() < minProcess.getPriority()) {
+
+                    if (!minProcess.Started()) { // check if process has not started to prevent interuption
+                        minProcess = executeQueue.get(x);
+                    }
+
+                }
+            }
+
+        }
+
+
         // Current executing process
-        Process live = executeQueue.getFirst();
+        Process live = minProcess;
 
         live.calcResponseTime(cycle); // first CPU time
         cPU_BusyCount++;
 
         live.decrementBurstTime(1);
-        timeLeft--;
+        quantumLeft--;
 
         if (showProcessing) {
             System.out.println("P[" + live.getPid() + "] Executing (" + live.getBurstTimeLeft() + " left)");
         }
 
         // Process completed
-        if (live.getBurstTimeLeft() == 0) {
+        if (live.getBurstTimeLeft() == 0 && minProcess.getPid() == live.getPid() ) {
             if (showProcessing) {
                 System.out.println("P[" + live.getPid() + "] Completed");
             }
@@ -76,21 +94,16 @@ public class RoundRobin extends Algo {
             live.calcTurnaroundTime(cycle + 1);
             live.calcWaitTime();
 
-            executeQueue.removeFirst();
-            timeLeft = quantum;
+            executeQueue.remove(live);
+            quantumLeft = quantum;
             return;
         }
 
         // Quantum expired → rotate process
-        if (timeLeft == 0) {
+        if (quantumLeft == 0) {
             executeQueue.removeFirst();
             executeQueue.addLast(live);
-
-            if (showProcessing) {
-                System.out.println("P[" + live.getPid() + "] Quantum Expired → Moved to Back");
-            }
-
-            timeLeft = quantum;
+            quantumLeft = quantum;
         }
 
         // Print waiting processes

@@ -10,7 +10,7 @@ public class App {
         int processNum = 0;
 
         while (true) {
-            System.out.println("Please Enter number of processes");
+            System.out.println("Please Enter number of processes to simulate");
 
             try {
                 processNum = scanner.nextInt();
