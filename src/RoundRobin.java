@@ -9,7 +9,7 @@ public class RoundRobin extends Algo {
       public RoundRobin( boolean showProcessing,int q) { //default constructor
 
         super("Round Robin (q=" + q + ")", showProcessing);
-         this.quantum = q;
+        this.quantum = q;
         this.quantumLeft = q;
     }
 

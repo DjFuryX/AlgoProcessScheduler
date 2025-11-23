@@ -1,3 +1,8 @@
+//Author: Hasani Malcolm
+/*
+Simualtes a Non preemptive Priority based Scheduling algorithm
+*/
+
 import java.util.LinkedList;
 
 public class PriorityNP extends Algo {
@@ -58,10 +63,8 @@ public class PriorityNP extends Algo {
                     if (!minProcess.Started()) { // check if process has not started to prevent interuption
                         minProcess = executeQueue.get(x);
                     }
-
                 }
             }
-
         }
 
         Process liveProcess; // current process being executed

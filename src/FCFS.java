@@ -74,6 +74,7 @@ public class FCFS extends Algo {
                     liveProcess.calcTurnaroundTime(cycle + 1);
                     liveProcess.calcWaitTime();
                     executeQueue.removeFirst();
+                    pCount++;
                 } else if (showProcessing) {
 
                     System.out.println("P[" + liveProcess.getPid() + "] Executing (" + liveProcess.getBurstTimeLeft() + " left)");

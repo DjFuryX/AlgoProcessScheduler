@@ -131,19 +131,19 @@ public class App {
 
         // First Come First Serve
         FCFS fcfs = new FCFS(processList, showSimulation);
-        //fcfs.runProcesses();
+        fcfs.runProcesses();
         
         // Non Pre-emptive Priority
         PriorityNP pnp = new PriorityNP(processList, showSimulation);
-        //pnp.runProcesses();
+        pnp.runProcesses();
 
         //Round Robin
         RoundRobin rr = new RoundRobin(processList, quantum, showSimulation);
-       // rr.runProcesses();
+        rr.runProcesses();
    
         //MultiLevel Queue
         MLqueue MLQ = new MLqueue(processList, showSimulation);
-       MLQ.runProcesses();
+        MLQ.runProcesses();
 
         /*show alogortihm statistics*/
         pnp.showProcessMetrics();
