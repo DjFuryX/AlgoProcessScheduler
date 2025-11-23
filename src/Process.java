@@ -1,3 +1,9 @@
+//Author Norman Martin
+/*Base Class for all Process handles 
+Creation
+Display
+*/
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 

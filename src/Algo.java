@@ -1,3 +1,10 @@
+//Author Norman Martin
+/*Base Class for all algorithms handles
+Creation
+Metrics Calculation
+Display
+ */
+
 import java.util.LinkedList;
 
 public abstract class Algo { // abstract algorithm class with all attributes and main methods
