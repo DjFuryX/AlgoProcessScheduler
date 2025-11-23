@@ -82,17 +82,16 @@ public abstract class Algo { // abstract algorithm class with all attributes and
 
     }
 
-    public boolean isComplete() {
+    public boolean isComplete() { //used to determine if all the processes are done simulating
 
         return (pCount == processList.size());
     }
 
-    public boolean isEmpty() {
-
+    public boolean isEmpty() {// used to determine if the algorithm is still processing
         return (0 == executeQueue.size());
     }
 
-    public void calculateProcessMetrics() {
+    public void calculateProcessMetrics() { // calculate performance metrics
 
         for (Process process : processList) {
             avgResponseTime += process.getResponseTime();
@@ -109,7 +108,7 @@ public abstract class Algo { // abstract algorithm class with all attributes and
 
     }
 
-    // show algorithm stats
+    // show and calculate algorithm stats
     public void showProcessMetrics() {
 
         System.out.println("\n===================" + name + "=========================");

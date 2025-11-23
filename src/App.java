@@ -159,6 +159,11 @@ public class App {
         rr.showProcessMetrics();
         MLQ.showProcessMetrics();
 
+
+        //show comparitve analysis
+        System.out.println("------------Comparitive Analysis-------------------");
+        
+
         scanner.close();// for user input
         Process.closeScanner();
 
@@ -168,6 +173,7 @@ public class App {
 
         // Create a list of processes
         LinkedList<Process> processList = new LinkedList<>();
+        //create files
         Path fcfsPath = Paths.get("FCFS/fcfs processes.csv");
         Path pnpPath = Paths.get("NPPriority/pnp processes.csv");
         Path mlqPath = Paths.get("MLQ/mlq processes.csv");
@@ -181,12 +187,12 @@ public class App {
             Files.createDirectories(pnpPath.getParent());
             Files.createDirectories(mlqPath.getParent());
             
-
+            //create file object
             PrintWriter fcfswriter = new PrintWriter(Files.newBufferedWriter(fcfsPath), true);
             PrintWriter pnpwriter = new PrintWriter(Files.newBufferedWriter(pnpPath), true);
             PrintWriter mlqwriter = new PrintWriter(Files.newBufferedWriter(mlqPath), true);
          
-
+            //write file headers
             fcfswriter.println("Process Count,Average Waiting Time,Average Turnaround Time,Average Response Time");
             pnpwriter.println("Process Count,Average Waiting Time,Average Turnaround Time,Average Response Time");
             mlqwriter.println("Process Count,Average Waiting Time,Average Turnaround Time,Average Response Time");
@@ -195,7 +201,7 @@ public class App {
             for (int x = 1; x <= max; x++) { // for max number of processes
 
                 System.out.print("");
-                System.out.print("\r Writing to file " + x + "/" + max);
+                System.out.print("\r Writing to file " + x + "/" + max);//show progress
 
                 for (int i = 1; i <= x; i++) { // generate test from 1 up the current max number
 
@@ -216,17 +222,17 @@ public class App {
                 pnp.calculateProcessMetrics();
 
                 // MultiLevel Queue
-                MLqueue MLQ = new MLqueue(processList, false);
-                MLQ.runProcesses();
-                MLQ.calculateProcessMetrics();
+                MLqueue mlq = new MLqueue(processList, false);
+                mlq.runProcesses();
+                mlq.calculateProcessMetrics();
 
-                
+                 // Round Robin for quantum 1 to 10
                 for (int j = 1; j <= 10; j++) {
 
                     rrPath = Paths.get("RR/rr processes quantum " +j+".csv");
                     Files.createDirectories(rrPath.getParent());
                     rrwriter = new PrintWriter(new FileWriter(rrPath.toString(),true));
-                    if(x==1)
+                    if(x==1)//print file header
                     {
                         rrwriter.close();
                         rrwriter = new PrintWriter(new FileWriter(rrPath.toString(),false));
@@ -234,12 +240,10 @@ public class App {
                 
                     }
                      
-
-                    // Round Robin
                     RoundRobin rr = new RoundRobin(processList, j, false);
                     rr.runProcesses();
                     rr.calculateProcessMetrics();
-
+                    // write data to file
                     rrwriter.println(x + "," + rr.avgWaitingTime + "," + rr.avgTurnaroundTime + "," + rr.avgResponseTime);
                     rrwriter.close();
                 }
@@ -247,10 +251,11 @@ public class App {
 
                 // write data to file
                 fcfswriter.println( x + "," + fcfs.avgWaitingTime + "," + fcfs.avgTurnaroundTime + "," + fcfs.avgResponseTime);
-                pnpwriter.println(  x + "," + fcfs.avgWaitingTime + "," + fcfs.avgTurnaroundTime + "," + fcfs.avgResponseTime);
-                mlqwriter.println(  x + "," + fcfs.avgWaitingTime + "," + fcfs.avgTurnaroundTime + "," + fcfs.avgResponseTime);
+                pnpwriter.println(  x + "," + pnp.avgWaitingTime + "," + pnp.avgTurnaroundTime + "," + pnp.avgResponseTime);
+                mlqwriter.println(  x + "," + mlq.avgWaitingTime + "," + mlq.avgTurnaroundTime + "," + mlq.avgResponseTime);
 
             }
+            //close file
             fcfswriter.close();
             pnpwriter.close();
             mlqwriter.close();
@@ -260,7 +265,7 @@ public class App {
         } catch (IOException e) {
             System.err.println("Error writing to file: " + e.getMessage());
         }
-
+        //show complete message
         System.out.println("\n Done Saved to:");
         System.out.println(fcfsPath.toAbsolutePath().getParent());
         System.out.println(mlqPath.toAbsolutePath().getParent());

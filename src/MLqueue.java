@@ -1,5 +1,5 @@
 //Author: Norman Martin
-/*Simualtes a Multilevel Queue using a premptive approach using three queues governened by 
+/*Simualtes a Multilevel Queue using a premptive approach using three queues governed by 
     a round robin with a quantum of 8
     a round robin with a quantum of 4
     First come first serve
@@ -13,9 +13,10 @@ public class MLqueue extends Algo {
     RoundRobin rr4 = null; // round robin with a quantum of 4 for priorities 2-3
     FCFS fcfs = null; // first come first serve for priorities 4-5
 
-    MLqueue(LinkedList<Process> originalList, boolean showProcessing) {
+    MLqueue(LinkedList<Process> originalList, boolean showProcessing) {// primary constructor
 
-        super(originalList, "Multi Level Queue", showProcessing);
+        super(originalList, "Multi Level Queue (Preemptive[roundrobin q8 - roundrobin q4 -First Come Fist Serve])", showProcessing);
+        // initialise queues
         fcfs = new FCFS(showProcessing);
         rr8 = new RoundRobin(showProcessing, 8);
         rr4 = new RoundRobin(showProcessing, 4);
@@ -23,12 +24,14 @@ public class MLqueue extends Algo {
     }
 
     public void runProcesses() {
+
         if (showProcessing) {
 
             System.out.println("===================" + name + "=========================");
         }
 
         int index = 0;
+        // get newly arrived processes 
         while (true) {
 
             if (showProcessing) {
@@ -38,20 +41,21 @@ public class MLqueue extends Algo {
                 if (showProcessing) {
                     System.out.println("P[" + processList.get(index).getPid() + "] Arrives");
                 }
-                executeQueue.addLast(processList.get(index));
+                executeQueue.addLast(processList.get(index)); // add to ready queue
 
                 index++;
             }
-
+            // sort processes by priority
             evaluateProcess();
             cycle++;
 
-            if (fcfs.pCount + rr4.pCount + rr8.pCount == processList.size()) {
+            if (fcfs.pCount + rr4.pCount + rr8.pCount == processList.size()) {// once all queues are completed exit
                 break;
             }
         }
     }
 
+    // send processes to the appropriate queue
     void evaluateProcess() {
 
         // assign each process to a specific algorithm
@@ -84,7 +88,7 @@ public class MLqueue extends Algo {
             }
         }
 
-        // run each queue with preference for the higher priority
+        // run each queue with preference for the higher priority and only if the higher queue is complete
         if (!rr8.isEmpty()) {
             if (showProcessing) {
                 System.out.println("===================" + rr8.name + "=========================");

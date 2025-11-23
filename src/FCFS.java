@@ -66,19 +66,16 @@ public class FCFS extends Algo {
                 liveProcess.decrementBurstTime(1);
 
                 if (liveProcess.getBurstTimeLeft() == 0) {
-                    if (showProcessing) {
+                    if (showProcessing) 
+                    {
                         System.out.println("P[" + liveProcess.getPid() + "] Completed");
-                        pCount++;
                     }
                     liveProcess.calcTurnaroundTime(cycle + 1);
                     liveProcess.calcWaitTime();
                     executeQueue.removeFirst();
                     pCount++;
                 } else if (showProcessing) {
-
-                    System.out.println(
-                            "P[" + liveProcess.getPid() + "] Executing (" + liveProcess.getBurstTimeLeft() + " left)");
-
+                    System.out.println( "P[" + liveProcess.getPid() + "] Executing (" + liveProcess.getBurstTimeLeft() + " left)");
                 }
 
             } else if (showProcessing) {
