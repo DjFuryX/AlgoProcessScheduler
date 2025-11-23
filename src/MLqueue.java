@@ -15,7 +15,8 @@ public class MLqueue extends Algo {
 
     MLqueue(LinkedList<Process> originalList, boolean showProcessing) {// primary constructor
 
-        super(originalList, "Multi Level Queue (Preemptive[roundrobin q8 - roundrobin q4 -First Come Fist Serve])", showProcessing);
+        super(originalList, "Multi Level Queue (Preemptive[roundrobin q8 - roundrobin q4 -First Come Fist Serve])",
+                showProcessing);
         // initialise queues
         fcfs = new FCFS(showProcessing);
         rr8 = new RoundRobin(showProcessing, 8);
@@ -31,7 +32,7 @@ public class MLqueue extends Algo {
         }
 
         int index = 0;
-        // get newly arrived processes 
+        // get newly arrived processes
         while (true) {
 
             if (showProcessing) {
@@ -88,7 +89,8 @@ public class MLqueue extends Algo {
             }
         }
 
-        // run each queue with preference for the higher priority and only if the higher queue is complete
+        // run each queue with preference for the higher priority and only if the higher
+        // queue is complete
         if (!rr8.isEmpty()) {
             if (showProcessing) {
                 System.out.println("===================" + rr8.name + "=========================");

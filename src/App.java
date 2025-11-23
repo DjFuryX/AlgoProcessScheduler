@@ -159,11 +159,10 @@ public class App {
         rr.showProcessMetrics();
         MLQ.showProcessMetrics();
 
-
-        //show comparitve analysis
+        // show comparitve analysis
         System.out.println("\n------------Comparitive Analysis-------------------\n");
 
-        //create list of All the algorithms
+        // create list of All the algorithms
         LinkedList<Algo> algoList = new LinkedList<>();
         algoList.add(fcfs);
         algoList.add(pnp);
@@ -176,21 +175,21 @@ public class App {
         Algo high = fcfs;
 
         for (Algo algo : algoList) {
-            if(algo.avgWaitingTime>high.avgWaitingTime){
+            if (algo.avgWaitingTime > high.avgWaitingTime) {
                 high = algo;
-            }    
+            }
         }
-        System.out.println(high.name+"\t"+high.avgWaitingTime);
+        System.out.println(high.name + "\t" + high.avgWaitingTime);
 
-         System.out.println("Lowest");
+        System.out.println("Lowest");
         Algo low = fcfs;
 
         for (Algo algo : algoList) {
-            if(algo.avgWaitingTime<high.avgWaitingTime){
+            if (algo.avgWaitingTime < high.avgWaitingTime) {
                 low = algo;
-            }    
+            }
         }
-        System.out.println(low.name+"\t"+low.avgWaitingTime);
+        System.out.println(low.name + "\t" + low.avgWaitingTime);
 
         // Find and output the highest and lowest turnaround time
         System.out.println("\nAverage Turnaround Time");
@@ -198,46 +197,45 @@ public class App {
         high = fcfs;
 
         for (Algo algo : algoList) {
-            if(algo.avgTurnaroundTime>high.avgTurnaroundTime){
+            if (algo.avgTurnaroundTime > high.avgTurnaroundTime) {
                 high = algo;
-            }    
+            }
         }
-        System.out.println(high.name+"\t"+high.avgTurnaroundTime);
+        System.out.println(high.name + "\t" + high.avgTurnaroundTime);
 
         System.out.println("Lowest");
         low = fcfs;
 
         for (Algo algo : algoList) {
-            if(algo.avgTurnaroundTime<high.avgTurnaroundTime){
+            if (algo.avgTurnaroundTime < high.avgTurnaroundTime) {
                 low = algo;
-            }    
+            }
         }
-        System.out.println(low.name+"\t"+low.avgTurnaroundTime);
-         // Find and output the highest and lowest Response time
+        System.out.println(low.name + "\t" + low.avgTurnaroundTime);
+        // Find and output the highest and lowest Response time
         System.out.println("\nAverage Response Time");
         System.out.println("Highest");
         high = fcfs;
 
         for (Algo algo : algoList) {
-            if(algo.avgResponseTime>high.avgResponseTime){
+            if (algo.avgResponseTime > high.avgResponseTime) {
                 high = algo;
-            }    
+            }
         }
-        System.out.println(high.name+"\t"+high.avgResponseTime);
+        System.out.println(high.name + "\t" + high.avgResponseTime);
 
         System.out.println("Lowest");
         low = fcfs;
 
         for (Algo algo : algoList) {
-            if(algo.avgResponseTime<high.avgResponseTime){
+            if (algo.avgResponseTime < high.avgResponseTime) {
                 low = algo;
-            }    
+            }
         }
-        System.out.println(low.name+"\t"+low.avgResponseTime);
-
+        System.out.println(low.name + "\t" + low.avgResponseTime);
 
         scanner.close();// for user input
-        Process.closeScanner();//close input object
+        Process.closeScanner();// close input object
 
     }
 
@@ -245,12 +243,11 @@ public class App {
 
         // Create a list of processes
         LinkedList<Process> processList = new LinkedList<>();
-        //create files
+        // create files
         Path fcfsPath = Paths.get("FCFS/fcfs processes.csv");
         Path pnpPath = Paths.get("NPPriority/pnp processes.csv");
         Path mlqPath = Paths.get("MLQ/mlq processes.csv");
         Path rrPath = Paths.get("RR/rr processes quantum.csv");
-       
 
         try {
 
@@ -258,13 +255,13 @@ public class App {
             Files.createDirectories(fcfsPath.getParent());
             Files.createDirectories(pnpPath.getParent());
             Files.createDirectories(mlqPath.getParent());
-            
-            //create file object
+
+            // create file object
             PrintWriter fcfswriter = new PrintWriter(Files.newBufferedWriter(fcfsPath), true);
             PrintWriter pnpwriter = new PrintWriter(Files.newBufferedWriter(pnpPath), true);
             PrintWriter mlqwriter = new PrintWriter(Files.newBufferedWriter(mlqPath), true);
-         
-            //write file headers
+
+            // write file headers
             fcfswriter.println("Process Count,Average Waiting Time,Average Turnaround Time,Average Response Time");
             pnpwriter.println("Process Count,Average Waiting Time,Average Turnaround Time,Average Response Time");
             mlqwriter.println("Process Count,Average Waiting Time,Average Turnaround Time,Average Response Time");
@@ -273,7 +270,7 @@ public class App {
             for (int x = 1; x <= max; x++) { // for max number of processes
 
                 System.out.print("");
-                System.out.print("\r Writing to file " + x + "/" + max);//show progress
+                System.out.print("\r Writing to file " + x + "/" + max);// show progress
 
                 for (int i = 1; i <= x; i++) { // generate test from 1 up the current max number
 
@@ -298,36 +295,40 @@ public class App {
                 mlq.runProcesses();
                 mlq.calculateProcessMetrics();
 
-                 // Round Robin for quantum 1 to 10
+                // Round Robin for quantum 1 to 10
                 for (int j = 1; j <= 10; j++) {
 
-                    rrPath = Paths.get("RR/rr processes quantum " +j+".csv");
+                    rrPath = Paths.get("RR/rr processes quantum " + j + ".csv");
                     Files.createDirectories(rrPath.getParent());
-                    rrwriter = new PrintWriter(new FileWriter(rrPath.toString(),true));
-                    if(x==1)//print file header
+                    rrwriter = new PrintWriter(new FileWriter(rrPath.toString(), true));
+                    if (x == 1)// print file header
                     {
                         rrwriter.close();
-                        rrwriter = new PrintWriter(new FileWriter(rrPath.toString(),false));
-                        rrwriter.println("Process Count,Average Waiting Time,Average Turnaround Time,Average Response Time");
-                
+                        rrwriter = new PrintWriter(new FileWriter(rrPath.toString(), false));
+                        rrwriter.println(
+                                "Process Count,Average Waiting Time,Average Turnaround Time,Average Response Time");
+
                     }
-                     
+
                     RoundRobin rr = new RoundRobin(processList, j, false);
                     rr.runProcesses();
                     rr.calculateProcessMetrics();
                     // write data to file
-                    rrwriter.println(x + "," + rr.avgWaitingTime + "," + rr.avgTurnaroundTime + "," + rr.avgResponseTime);
+                    rrwriter.println(
+                            x + "," + rr.avgWaitingTime + "," + rr.avgTurnaroundTime + "," + rr.avgResponseTime);
                     rrwriter.close();
                 }
-                   
 
                 // write data to file
-                fcfswriter.println( x + "," + fcfs.avgWaitingTime + "," + fcfs.avgTurnaroundTime + "," + fcfs.avgResponseTime);
-                pnpwriter.println(  x + "," + pnp.avgWaitingTime + "," + pnp.avgTurnaroundTime + "," + pnp.avgResponseTime);
-                mlqwriter.println(  x + "," + mlq.avgWaitingTime + "," + mlq.avgTurnaroundTime + "," + mlq.avgResponseTime);
+                fcfswriter.println(
+                        x + "," + fcfs.avgWaitingTime + "," + fcfs.avgTurnaroundTime + "," + fcfs.avgResponseTime);
+                pnpwriter.println(
+                        x + "," + pnp.avgWaitingTime + "," + pnp.avgTurnaroundTime + "," + pnp.avgResponseTime);
+                mlqwriter.println(
+                        x + "," + mlq.avgWaitingTime + "," + mlq.avgTurnaroundTime + "," + mlq.avgResponseTime);
 
             }
-            //close file
+            // close file
             fcfswriter.close();
             pnpwriter.close();
             mlqwriter.close();
@@ -335,7 +336,7 @@ public class App {
         } catch (IOException e) {
             System.err.println("Error writing to file: " + e.getMessage());
         }
-        //show complete message
+        // show complete message
         System.out.println("\n Done Saved to:");
         System.out.println(fcfsPath.toAbsolutePath().getParent());
         System.out.println(mlqPath.toAbsolutePath().getParent());
@@ -359,7 +360,6 @@ public class App {
                     processList.set(j + 1, temp);
                     swapped = true;
                 }
-
             }
             // If no two elements were swapped, then break
             if (!swapped) {

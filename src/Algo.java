@@ -82,7 +82,7 @@ public abstract class Algo { // abstract algorithm class with all attributes and
 
     }
 
-    public boolean isComplete() { //used to determine if all the processes are done simulating
+    public boolean isComplete() { // used to determine if all the processes are done simulating
 
         return (pCount == processList.size());
     }

@@ -33,7 +33,7 @@ public class Process {
         started = false;
     }
 
-    public Process(Process newProcess) { //prirmary constructor
+    public Process(Process newProcess) { // prirmary constructor
         pid = newProcess.pid;
         arrivalTime = newProcess.arrivalTime;
         burstTime = newProcess.burstTime;
@@ -46,7 +46,7 @@ public class Process {
 
     }
 
-    public int getArrivalTime() { 
+    public int getArrivalTime() {
         return arrivalTime;
     }
 
@@ -101,8 +101,8 @@ public class Process {
         return responseTime;
     }
 
-    //create a process from user input
-    public Process createProcessManual() { 
+    // create a process from user input
+    public Process createProcessManual() {
 
         this.pid = processCount;
         System.out.println("P [" + this.pid + "]--------------------------------------------------");
@@ -114,11 +114,11 @@ public class Process {
         return this;
     }
 
-    //create process from random number generator
+    // create process from random number generator
     public Process createProcessRandom(boolean showProcesses) {
         this.pid = processCount;
-        this.arrivalTime = (int) ((Math.random() * 10) + processCount); 
-        this.burstTime = (int) ((Math.random() * 15) + 1); //burst time is from 1 to 15
+        this.arrivalTime = (int) ((Math.random() * 10) + processCount);
+        this.burstTime = (int) ((Math.random() * 15) + 1); // burst time is from 1 to 15
         this.priority = (int) ((Math.random() * 5) + 1); // priority is from 1 to 5
 
         if (showProcesses) {
@@ -134,6 +134,7 @@ public class Process {
         return this;
     }
 
+    // create process from User input
     private int getUserInputInt(String userText) {
         int value = 0;
         scanner = new Scanner(System.in);

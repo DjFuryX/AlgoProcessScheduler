@@ -91,7 +91,8 @@ public class PriorityNP extends Algo {
                     pCount++;
                 } else if (showProcessing) {
 
-                    System.out.println("P[" + liveProcess.getPid() + "] Executing (" + liveProcess.getBurstTimeLeft() + " left)");
+                    System.out.println(
+                            "P[" + liveProcess.getPid() + "] Executing (" + liveProcess.getBurstTimeLeft() + " left)");
 
                 }
 
