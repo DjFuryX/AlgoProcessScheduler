@@ -37,7 +37,7 @@ public class PriorityNP extends Algo {
             evaluateProcess();
             cycle++;
 
-            if (pCount == processList.size()) {
+            if (isComplete()) {
                 break;
             }
         }
@@ -88,7 +88,7 @@ public class PriorityNP extends Algo {
                     pCount++;
                 } else if (showProcessing) {
 
-                    System.out.println("P[" + liveProcess.getPid() + "] Executing");
+                     System.out.println("P[" + liveProcess.getPid() + "] Executing (" + liveProcess.getBurstTimeLeft() + " left)");
 
                 }
 

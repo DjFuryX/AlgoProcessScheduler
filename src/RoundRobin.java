@@ -6,7 +6,14 @@ public class RoundRobin extends Algo {
     private int quantum; // time slice of roun robin algorithim
     private int quantumLeft; //time slice left before rotation
 
-    public RoundRobin(LinkedList<Process> originalList, int q, boolean showProcessing) {
+      public RoundRobin( boolean showProcessing,int q) { //default constructor
+
+        super("Round Robin (q=" + q + ")", showProcessing);
+         this.quantum = q;
+        this.quantumLeft = q;
+    }
+
+    public RoundRobin(LinkedList<Process> originalList, int q, boolean showProcessing) {//primary constructor
         super(originalList, "Round Robin (q=" + q + ")", showProcessing);
         this.quantum = q;
         this.quantumLeft = q;
@@ -38,17 +45,16 @@ public class RoundRobin extends Algo {
             evaluateProcess();
             cycle++;
 
-            if (executeQueue.size() == 0 && index == processList.size()) {
+            if (isComplete()) {
                 break;
             }
         }
     }
 
-    private void evaluateProcess() {
+    public void evaluateProcess() {
 
         // CPU idle
         if (executeQueue.size() == 0) {
-            if (showProcessing) System.out.println("CPU Idle");
             quantumLeft = quantum;
             return;
         }
@@ -65,12 +71,9 @@ public class RoundRobin extends Algo {
                     if (!minProcess.Started()) { // check if process has not started to prevent interuption
                         minProcess = executeQueue.get(x);
                     }
-
                 }
             }
-
         }
-
 
         // Current executing process
         Process live = minProcess;
@@ -96,12 +99,13 @@ public class RoundRobin extends Algo {
 
             executeQueue.remove(live);
             quantumLeft = quantum;
+            pCount++; //update number of completed processes
             return;
         }
 
         // Quantum expired → rotate process
         if (quantumLeft == 0) {
-            executeQueue.removeFirst();
+            executeQueue.remove(live);
             executeQueue.addLast(live);
             quantumLeft = quantum;
         }

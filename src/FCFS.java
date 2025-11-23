@@ -43,7 +43,7 @@ public class FCFS extends Algo {
             evaluateProcess();
             cycle++;
 
-            if (pCount == processList.size()) {
+            if (isComplete()) {
                 break;
             }
         }
@@ -76,7 +76,7 @@ public class FCFS extends Algo {
                     executeQueue.removeFirst();
                 } else if (showProcessing) {
 
-                    System.out.println("P[" + liveProcess.getPid() + "] Executing");
+                    System.out.println("P[" + liveProcess.getPid() + "] Executing (" + liveProcess.getBurstTimeLeft() + " left)");
 
                 }
 

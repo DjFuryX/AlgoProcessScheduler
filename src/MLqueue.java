@@ -1,14 +1,25 @@
+//Author: Norman Martin
+/*Simualtes a Multilevel Queue using a premptive approach using three queues governened by 
+    a round robin with a quantum of 8
+    a round robin with a quantum of 4
+    First come first serve
+*/
+
 import java.util.LinkedList;
 
 public class MLqueue extends Algo {
 
+    RoundRobin rr8 = null; // round robin with a quantum of 8 for priority 1
+    RoundRobin rr4 = null; // round robin with a quantum of 4 for priorities 2-3
     FCFS fcfs = null; // first come first serve for priorities 4-5
-
 
     MLqueue(LinkedList<Process> originalList, boolean showProcessing) {
 
         super(originalList, "Multi Level Queue", showProcessing);
         fcfs = new FCFS(showProcessing);
+        rr8 = new RoundRobin(showProcessing, 8);
+        rr4 = new RoundRobin(showProcessing, 4);
+
     }
 
     public void runProcesses() {
@@ -17,18 +28,14 @@ public class MLqueue extends Algo {
             System.out.println("===================" + name + "=========================");
         }
 
-        int index=0;
+        int index = 0;
         while (true) {
 
-             if (showProcessing) {
+            if (showProcessing) {
                 System.out.println("Sytem Time: " + cycle + "-------------------------------------------");
             }
-            /*
-             * && operator has short-circuiting behavior. If the left operand is
-             * false, the right operand is notevaluated.
-             */
             while (index != processList.size() && processList.get(index).getArrivalTime() == cycle) {
-                 if (showProcessing) {
+                if (showProcessing) {
                     System.out.println("P[" + processList.get(index).getPid() + "] Arrives");
                 }
                 executeQueue.addLast(processList.get(index));
@@ -39,13 +46,10 @@ public class MLqueue extends Algo {
             evaluateProcess();
             cycle++;
 
-            if (fcfs.pCount/*+rr4Count+rr8sCount*/ == processList.size()){
+            if (fcfs.pCount + rr4.pCount + rr8.pCount == processList.size()) {
                 break;
             }
-          
-
         }
-
     }
 
     void evaluateProcess() {
@@ -56,25 +60,24 @@ public class MLqueue extends Algo {
             if (executeQueue.size() == 0) {
                 break;
             }
-            /* priorites 3 uses the round robin with a quantum of 8 */
+            /* priorites 1 uses the round robin with a quantum of 8 */
             else if (executeQueue.get(i).getPriority() == 1) {
 
-                executeQueue.remove(i);// remove later TESTING
-             
-
+                rr8.insertProcess(executeQueue.get(i));
+                executeQueue.remove(i);
             }
-            /* priorites 3 uses the round robin with a quantum of 4 */
+
+            /* priorites 2 and 3 uses the round robin with a quantum of 4 */
             else if (executeQueue.get(i).getPriority() == 2 || executeQueue.get(i).getPriority() == 3) {
 
-                executeQueue.remove(i); // remove later TESTING
-           
-
+                rr4.insertProcess(executeQueue.get(i));
+                executeQueue.remove(i);
             }
+
             /* prorities 4 and 5 uses first come fist serve */
             else if (executeQueue.get(i).getPriority() == 4 || executeQueue.get(i).getPriority() == 5) {
 
                 fcfs.insertProcess(executeQueue.get(i));
-            
 
                 executeQueue.remove(i);
 
@@ -82,15 +85,40 @@ public class MLqueue extends Algo {
         }
 
         // run each queue with preference for the higher priority
+        if (!rr8.isEmpty()) {
+            if (showProcessing) {
+                System.out.println("===================" + rr8.name + "=========================");
+            }
 
-        // roundrobin.runProcess(quantum 8)
-        // roundrobin.runProcess(quantum 4)
+            rr8.cycle = this.cycle;
+            rr8.evaluateProcess();
+            cPU_BusyCount++;
+            return;
+        }
 
-        fcfs.cycle = this.cycle;
-        fcfs.evaluateProcess();
-     
-       
+        if (!rr4.isEmpty()) {
+            if (showProcessing) {
+                System.out.println("===================" + rr4.name + "=========================");
+            }
 
-    };
+            rr4.cycle = this.cycle;
+            rr4.evaluateProcess();
+            cPU_BusyCount++;
+            return;
+        }
+
+        if (!fcfs.isEmpty()) {
+            if (showProcessing) {
+                System.out.println("===================" + fcfs.name + "=========================");
+            }
+
+            fcfs.cycle = this.cycle;
+            fcfs.evaluateProcess();
+            cPU_BusyCount++;
+            return;
+
+        }
+
+    }
 
 }

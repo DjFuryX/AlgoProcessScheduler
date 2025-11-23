@@ -82,6 +82,18 @@ public abstract class Algo { // abstract algorithm class with all attributes and
 
     }
 
+    public boolean isComplete(){
+
+        return(pCount == processList.size());
+    }
+
+     public boolean isEmpty(){
+
+        return(0 == executeQueue.size());
+    }
+
+
+
     public void showProcessMetrics() {
 
         System.out.println("\n===================" + name + "=========================");
@@ -95,6 +107,7 @@ public abstract class Algo { // abstract algorithm class with all attributes and
             avgTurnaroundTime += process.getTurnaroundTime();
             avgWaitingTime += process.getWaitingime();
         }
+
         int count = processList.size();
 
         avgResponseTime /= count;

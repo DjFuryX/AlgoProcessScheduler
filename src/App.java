@@ -9,6 +9,8 @@ public class App {
 
         int processNum = 0;
 
+        System.out.println("********************Welcome to Our Process Scheduler Simulator*************************\n\n");
+
         while (true) {
             System.out.println("Please Enter number of processes to simulate");
 
@@ -62,6 +64,47 @@ public class App {
 
         }
 
+         while (true) {
+            System.out.println("Would you like to see the process simulation  (1) Yes (2) NO");
+
+            try {
+                option = scanner.nextInt();
+
+                if (option == 1 || option == 2) {
+                    break;
+                } else {
+                    System.out.println("Please enter 1 or 2");
+                }
+
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input.");
+                scanner.next(); // Consume the invalid input to clear the scanner buffer
+            }
+        }
+
+        boolean showSimulation = (option == 1)? true:false; // change option to a bool
+
+
+        while (true) {
+            System.out.println("Please Enter Quantum for the Round Robin Algorithm");
+
+            try {
+                option = scanner.nextInt();
+
+                if (option>0) {
+                    break;
+                } else {
+                    System.out.println("Please enter a numner greater than 0");
+                }
+
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input.");
+                scanner.next(); // Consume the invalid input to clear the scanner buffer
+            }
+        }
+
+        int quantum = option;
+
         // Sort list by arrival time using bubble sort
         boolean swapped = false;
         int size = processList.size() - 1;
@@ -83,36 +126,32 @@ public class App {
             }
         }
 
-        // Process alogorithms
-        // First Come First Serve
-        FCFS fcfs = new FCFS(processList, true);
 
-      // fcfs.runProcesses();// simulate first come first serve algorithm
+        /*Process alogorithms*/
+
+        // First Come First Serve
+        FCFS fcfs = new FCFS(processList, showSimulation);
+        //fcfs.runProcesses();
         
         // Non Pre-emptive Priority
-        PriorityNP pnp = new PriorityNP(processList, false);
+        PriorityNP pnp = new PriorityNP(processList, showSimulation);
+        //pnp.runProcesses();
 
-      // pnp.runProcesses();
-
-        RoundRobin rr = new RoundRobin(processList, 2, true);
-
-        rr.runProcesses();
-        rr.showProcessMetrics();
-
-
-
+        //Round Robin
+        RoundRobin rr = new RoundRobin(processList, quantum, showSimulation);
+       // rr.runProcesses();
+   
         //MultiLevel Queue
+        MLqueue MLQ = new MLqueue(processList, showSimulation);
+       MLQ.runProcesses();
 
-        MLqueue MLQ = new MLqueue(processList, true);
+        /*show alogortihm statistics*/
+        pnp.showProcessMetrics();
+        fcfs.showProcessMetrics(); 
+        rr.showProcessMetrics();
+        MLQ.showProcessMetrics();
 
-        //MLQ.runProcesses();
 
-
-        // show alogortihm statistics
-        // pnp.showProcessMetrics();
-      //   fcfs.showProcessMetrics(); 
-        // MLQ.showProcessMetrics();
-    
         scanner.close();// for user input
         Process.closeScanner();
 
