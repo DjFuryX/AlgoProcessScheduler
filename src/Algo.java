@@ -92,6 +92,24 @@ public abstract class Algo { // abstract algorithm class with all attributes and
         return (0 == executeQueue.size());
     }
 
+    public void calculateProcessMetrics() {
+
+        for (Process process : processList) {
+            avgResponseTime += process.getResponseTime();
+            avgTurnaroundTime += process.getTurnaroundTime();
+            avgWaitingTime += process.getWaitingime();
+        }
+
+        int count = processList.size();
+
+        avgResponseTime /= count;
+        avgTurnaroundTime /= count;
+        avgWaitingTime /= count;
+        throughput = (count / (float) cycle);
+
+    }
+
+    // show algorithm stats
     public void showProcessMetrics() {
 
         System.out.println("\n===================" + name + "=========================");
@@ -118,6 +136,6 @@ public abstract class Algo { // abstract algorithm class with all attributes and
         System.out.println("Busy Count: " + cPU_BusyCount + " Cycles: " + cycle);
         System.out.println("ThroughPut: " + throughput + " process/unit");
 
-    }// show algorithm stats
+    }
 
 }
