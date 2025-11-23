@@ -11,7 +11,7 @@ public abstract class Algo { // abstract algorithm class with all attributes and
     protected float throughput; // the number of processes that complete their execution per time unit (total
                                 // Processes/cycle)
 
-    int pCount; //number of completed processes
+    int pCount; // number of completed processes
 
     protected LinkedList<Process> processList; // list of all processes
 
@@ -82,17 +82,15 @@ public abstract class Algo { // abstract algorithm class with all attributes and
 
     }
 
-    public boolean isComplete(){
+    public boolean isComplete() {
 
-        return(pCount == processList.size());
+        return (pCount == processList.size());
     }
 
-     public boolean isEmpty(){
+    public boolean isEmpty() {
 
-        return(0 == executeQueue.size());
+        return (0 == executeQueue.size());
     }
-
-
 
     public void showProcessMetrics() {
 

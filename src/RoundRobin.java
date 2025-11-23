@@ -4,16 +4,16 @@ import java.util.LinkedList;
 public class RoundRobin extends Algo {
 
     private int quantum; // time slice of roun robin algorithim
-    private int quantumLeft; //time slice left before rotation
+    private int quantumLeft; // time slice left before rotation
 
-      public RoundRobin( boolean showProcessing,int q) { //default constructor
+    public RoundRobin(boolean showProcessing, int q) { // default constructor
 
         super("Round Robin (q=" + q + ")", showProcessing);
         this.quantum = q;
         this.quantumLeft = q;
     }
 
-    public RoundRobin(LinkedList<Process> originalList, int q, boolean showProcessing) {//primary constructor
+    public RoundRobin(LinkedList<Process> originalList, int q, boolean showProcessing) {// primary constructor
         super(originalList, "Round Robin (q=" + q + ")", showProcessing);
         this.quantum = q;
         this.quantumLeft = q;
@@ -89,7 +89,7 @@ public class RoundRobin extends Algo {
         }
 
         // Process completed
-        if (live.getBurstTimeLeft() == 0 && minProcess.getPid() == live.getPid() ) {
+        if (live.getBurstTimeLeft() == 0 && minProcess.getPid() == live.getPid()) {
             if (showProcessing) {
                 System.out.println("P[" + live.getPid() + "] Completed");
             }
@@ -99,7 +99,7 @@ public class RoundRobin extends Algo {
 
             executeQueue.remove(live);
             quantumLeft = quantum;
-            pCount++; //update number of completed processes
+            pCount++; // update number of completed processes
             return;
         }
 

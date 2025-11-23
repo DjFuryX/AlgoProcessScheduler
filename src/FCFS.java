@@ -2,8 +2,7 @@ import java.util.LinkedList;
 
 public class FCFS extends Algo {
 
-    
-     public FCFS( boolean showProcessing) {
+    public FCFS(boolean showProcessing) {
 
         super("First Come First Serve", showProcessing);
     }
@@ -18,7 +17,7 @@ public class FCFS extends Algo {
 
             System.out.println("===================" + name + "=========================");
         }
-        int index= 0;
+        int index = 0;
         while (true) {
 
             // System.out.println("J: " + index + " Cycle: " + cycle + " SIze: " +
@@ -27,10 +26,10 @@ public class FCFS extends Algo {
                 System.out.println("Sytem Time: " + cycle + "-------------------------------------------");
             }
             /*
-             * && operator has  short-circuiting behavior. If the left operand is
+             * && operator has short-circuiting behavior. If the left operand is
              * false, the right operand is notevaluated.
              */
-            
+
             while (index != processList.size() && processList.get(index).getArrivalTime() == cycle) {
                 if (showProcessing) {
                     System.out.println("P[" + processList.get(index).getPid() + "] Arrives");
@@ -77,7 +76,8 @@ public class FCFS extends Algo {
                     pCount++;
                 } else if (showProcessing) {
 
-                    System.out.println("P[" + liveProcess.getPid() + "] Executing (" + liveProcess.getBurstTimeLeft() + " left)");
+                    System.out.println(
+                            "P[" + liveProcess.getPid() + "] Executing (" + liveProcess.getBurstTimeLeft() + " left)");
 
                 }
 

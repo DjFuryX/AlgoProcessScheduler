@@ -14,7 +14,7 @@ public class PriorityNP extends Algo {
 
     PriorityNP(boolean showProcessing) {
 
-        super( "priority Non-Preemptive", showProcessing);
+        super("priority Non-Preemptive", showProcessing);
     }
 
     public void runProcesses() {
@@ -22,8 +22,8 @@ public class PriorityNP extends Algo {
         if (showProcessing) {
             System.out.println("===================" + name + "=========================");
         }
-   
-        int index =0;
+
+        int index = 0;
         while (true) {
             if (showProcessing) {
                 System.out.println("Sytem Time: " + cycle + "-------------------------------------------");
@@ -91,7 +91,8 @@ public class PriorityNP extends Algo {
                     pCount++;
                 } else if (showProcessing) {
 
-                     System.out.println("P[" + liveProcess.getPid() + "] Executing (" + liveProcess.getBurstTimeLeft() + " left)");
+                    System.out.println(
+                            "P[" + liveProcess.getPid() + "] Executing (" + liveProcess.getBurstTimeLeft() + " left)");
 
                 }
 

@@ -9,7 +9,8 @@ public class App {
 
         int processNum = 0;
 
-        System.out.println("********************Welcome to Our Process Scheduler Simulator*************************\n\n");
+        System.out
+                .println("********************Welcome to Our Process Scheduler Simulator*************************\n\n");
 
         while (true) {
             System.out.println("Please Enter number of processes to simulate");
@@ -64,7 +65,7 @@ public class App {
 
         }
 
-         while (true) {
+        while (true) {
             System.out.println("Would you like to see the process simulation  (1) Yes (2) NO");
 
             try {
@@ -82,8 +83,7 @@ public class App {
             }
         }
 
-        boolean showSimulation = (option == 1)? true:false; // change option to a bool
-
+        boolean showSimulation = (option == 1) ? true : false; // change option to a bool
 
         while (true) {
             System.out.println("Please Enter Quantum for the Round Robin Algorithm");
@@ -91,7 +91,7 @@ public class App {
             try {
                 option = scanner.nextInt();
 
-                if (option>0) {
+                if (option > 0) {
                     break;
                 } else {
                     System.out.println("Please enter a numner greater than 0");
@@ -126,31 +126,29 @@ public class App {
             }
         }
 
-
-        /*Process alogorithms*/
+        /* Process alogorithms */
 
         // First Come First Serve
         FCFS fcfs = new FCFS(processList, showSimulation);
         fcfs.runProcesses();
-        
+
         // Non Pre-emptive Priority
         PriorityNP pnp = new PriorityNP(processList, showSimulation);
         pnp.runProcesses();
 
-        //Round Robin
+        // Round Robin
         RoundRobin rr = new RoundRobin(processList, quantum, showSimulation);
         rr.runProcesses();
-   
-        //MultiLevel Queue
+
+        // MultiLevel Queue
         MLqueue MLQ = new MLqueue(processList, showSimulation);
         MLQ.runProcesses();
 
-        /*show alogortihm statistics*/
+        /* show alogortihm statistics */
         pnp.showProcessMetrics();
-        fcfs.showProcessMetrics(); 
+        fcfs.showProcessMetrics();
         rr.showProcessMetrics();
         MLQ.showProcessMetrics();
-
 
         scanner.close();// for user input
         Process.closeScanner();
