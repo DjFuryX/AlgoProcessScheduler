@@ -161,11 +161,83 @@ public class App {
 
 
         //show comparitve analysis
-        System.out.println("------------Comparitive Analysis-------------------");
-        
+        System.out.println("\n------------Comparitive Analysis-------------------\n");
+
+        //create list of All the algorithms
+        LinkedList<Algo> algoList = new LinkedList<>();
+        algoList.add(fcfs);
+        algoList.add(pnp);
+        algoList.add(rr);
+        algoList.add(MLQ);
+
+        // Find and output the highest and lowest waiting time
+        System.out.println("Average Waiting Time");
+        System.out.println("Highest");
+        Algo high = fcfs;
+
+        for (Algo algo : algoList) {
+            if(algo.avgWaitingTime>high.avgWaitingTime){
+                high = algo;
+            }    
+        }
+        System.out.println(high.name+"\t"+high.avgWaitingTime);
+
+         System.out.println("Lowest");
+        Algo low = fcfs;
+
+        for (Algo algo : algoList) {
+            if(algo.avgWaitingTime<high.avgWaitingTime){
+                low = algo;
+            }    
+        }
+        System.out.println(low.name+"\t"+low.avgWaitingTime);
+
+        // Find and output the highest and lowest turnaround time
+        System.out.println("\nAverage Turnaround Time");
+        System.out.println("Highest");
+        high = fcfs;
+
+        for (Algo algo : algoList) {
+            if(algo.avgTurnaroundTime>high.avgTurnaroundTime){
+                high = algo;
+            }    
+        }
+        System.out.println(high.name+"\t"+high.avgTurnaroundTime);
+
+        System.out.println("Lowest");
+        low = fcfs;
+
+        for (Algo algo : algoList) {
+            if(algo.avgTurnaroundTime<high.avgTurnaroundTime){
+                low = algo;
+            }    
+        }
+        System.out.println(low.name+"\t"+low.avgTurnaroundTime);
+         // Find and output the highest and lowest Response time
+        System.out.println("\nAverage Response Time");
+        System.out.println("Highest");
+        high = fcfs;
+
+        for (Algo algo : algoList) {
+            if(algo.avgResponseTime>high.avgResponseTime){
+                high = algo;
+            }    
+        }
+        System.out.println(high.name+"\t"+high.avgResponseTime);
+
+        System.out.println("Lowest");
+        low = fcfs;
+
+        for (Algo algo : algoList) {
+            if(algo.avgResponseTime<high.avgResponseTime){
+                low = algo;
+            }    
+        }
+        System.out.println(low.name+"\t"+low.avgResponseTime);
+
 
         scanner.close();// for user input
-        Process.closeScanner();
+        Process.closeScanner();//close input object
 
     }
 
@@ -259,8 +331,6 @@ public class App {
             fcfswriter.close();
             pnpwriter.close();
             mlqwriter.close();
-            
-        
 
         } catch (IOException e) {
             System.err.println("Error writing to file: " + e.getMessage());
