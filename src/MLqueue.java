@@ -38,6 +38,7 @@ public class MLqueue extends Algo {
             if (showProcessing) {
                 System.out.println("Sytem Time: " + cycle + "-------------------------------------------");
             }
+            // add newly arrived process to read queue
             while (index != processList.size() && processList.get(index).getArrivalTime() == cycle) {
                 if (showProcessing) {
                     System.out.println("P[" + processList.get(index).getPid() + "] Arrives");

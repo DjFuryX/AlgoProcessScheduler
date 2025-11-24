@@ -25,11 +25,7 @@ public class FCFS extends Algo {
             if (showProcessing) {
                 System.out.println("Sytem Time: " + cycle + "-------------------------------------------");
             }
-            /*
-             * && operator has short-circuiting behavior. If the left operand is
-             * false, the right operand is notevaluated.
-             */
-
+            // add newly arrived process to read queue
             while (index != processList.size() && processList.get(index).getArrivalTime() == cycle) {
                 if (showProcessing) {
                     System.out.println("P[" + processList.get(index).getPid() + "] Arrives");
@@ -74,8 +70,7 @@ public class FCFS extends Algo {
                     executeQueue.removeFirst();
                     pCount++;
                 } else if (showProcessing) {
-                    System.out.println(
-                            "P[" + liveProcess.getPid() + "] Executing (" + liveProcess.getBurstTimeLeft() + " left)");
+                    System.out.println(  "P[" + liveProcess.getPid() + "] Executing (" + liveProcess.getBurstTimeLeft() + " left)");
                 }
 
             } else if (showProcessing) {

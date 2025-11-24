@@ -13,9 +13,9 @@ public class App {
 
         Scanner scanner = new Scanner(System.in);
 
-        System.out
-                .println("********************Welcome to Our Process Scheduler Simulator*************************\n\n");
+        System.out.println("********************Welcome to Our Process Scheduler Simulator*************************\n\n");
 
+        //get number of processes 
         int processNum = 0;
         while (true) {
             System.out.println("Please Enter number of processes to simulate");
@@ -32,7 +32,8 @@ public class App {
                 scanner.next(); // Consume the invalid input to clear the scanner buffer
             }
         }
-
+      
+        // option to write data to file or on screen
         while (true) {
             System.out.println("Would you like to simulate processes (1) or write data to file (2) ");
 
@@ -42,8 +43,8 @@ public class App {
                 if (option == 1) {
                     break;
                 } else if (option == 2) {
-                    generateAlanysis(processNum);
-                    return;
+                    generateAlanysis(processNum); // write data to file
+                    return;//exit program
                 } else {
                     System.out.println("Please enter 1 or 2");
                 }
@@ -54,10 +55,9 @@ public class App {
             }
         }
 
-        System.out.println(processNum + " Processses ");
 
+        // option to generate processes or enter manually
         int option = 0;
-
         while (true) {
             System.out.println("Would you like to generate values (1) or enter manually (2)");
 
@@ -91,7 +91,7 @@ public class App {
             }
 
         }
-
+          // option to show simulated queue or just the results
         while (true) {
             System.out.println("Would you like to see the process simulation  (1) Yes (2) NO");
 
@@ -109,9 +109,9 @@ public class App {
                 scanner.next(); // Consume the invalid input to clear the scanner buffer
             }
         }
-
         boolean showSimulation = (option == 1) ? true : false; // change option to a bool
 
+        // get time quantum for round robin
         while (true) {
             System.out.println("Please Enter Quantum for the Round Robin Algorithm");
 
@@ -239,6 +239,7 @@ public class App {
 
     }
 
+    // Simulates multiple runs of each algorithm then writes the data to a file 
     static void generateAlanysis(int max) {
 
         // Create a list of processes
@@ -320,12 +321,9 @@ public class App {
                 }
 
                 // write data to file
-                fcfswriter.println(
-                        x + "," + fcfs.avgWaitingTime + "," + fcfs.avgTurnaroundTime + "," + fcfs.avgResponseTime);
-                pnpwriter.println(
-                        x + "," + pnp.avgWaitingTime + "," + pnp.avgTurnaroundTime + "," + pnp.avgResponseTime);
-                mlqwriter.println(
-                        x + "," + mlq.avgWaitingTime + "," + mlq.avgTurnaroundTime + "," + mlq.avgResponseTime);
+                fcfswriter.println( x + "," + fcfs.avgWaitingTime + "," + fcfs.avgTurnaroundTime + "," + fcfs.avgResponseTime);
+                pnpwriter.println( x + "," + pnp.avgWaitingTime + "," + pnp.avgTurnaroundTime + "," + pnp.avgResponseTime);
+                mlqwriter.println( x + "," + mlq.avgWaitingTime + "," + mlq.avgTurnaroundTime + "," + mlq.avgResponseTime);
 
             }
             // close file

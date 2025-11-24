@@ -24,6 +24,7 @@ public class PriorityNP extends Algo {
         }
 
         int index = 0;
+        // add newly arrived process to read queue
         while (true) {
             if (showProcessing) {
                 System.out.println("Sytem Time: " + cycle + "-------------------------------------------");
@@ -91,8 +92,7 @@ public class PriorityNP extends Algo {
                     pCount++;
                 } else if (showProcessing) {
 
-                    System.out.println(
-                            "P[" + liveProcess.getPid() + "] Executing (" + liveProcess.getBurstTimeLeft() + " left)");
+                    System.out.println( "P[" + liveProcess.getPid() + "] Executing (" + liveProcess.getBurstTimeLeft() + " left)");
 
                 }
 

@@ -26,14 +26,13 @@ public class RoundRobin extends Algo {
         }
 
         int index = 0;
-
+        // Add newly arriving processes
         while (true) {
 
             if (showProcessing) {
                 System.out.println("System Time: " + cycle + "-------------------------------------------");
             }
-
-            // Add newly arriving processes
+           // add newly arrived process to read queue
             while (index < processList.size() && processList.get(index).getArrivalTime() == cycle) {
                 if (showProcessing) {
                     System.out.println("P[" + processList.get(index).getPid() + "] Arrives");
