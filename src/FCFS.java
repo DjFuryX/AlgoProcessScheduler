@@ -1,3 +1,4 @@
+/*Author Rackeel Brooks */
 import java.util.LinkedList;
 
 public class FCFS extends Algo {
