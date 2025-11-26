@@ -185,7 +185,7 @@ public class App {
         Algo low = fcfs;
 
         for (Algo algo : algoList) {
-            if (algo.avgWaitingTime < high.avgWaitingTime) {
+            if (algo.avgWaitingTime < low.avgWaitingTime) {
                 low = algo;
             }
         }
@@ -207,7 +207,7 @@ public class App {
         low = fcfs;
 
         for (Algo algo : algoList) {
-            if (algo.avgTurnaroundTime < high.avgTurnaroundTime) {
+            if (algo.avgTurnaroundTime < low.avgTurnaroundTime) {
                 low = algo;
             }
         }
@@ -228,7 +228,7 @@ public class App {
         low = fcfs;
 
         for (Algo algo : algoList) {
-            if (algo.avgResponseTime < high.avgResponseTime) {
+            if (algo.avgResponseTime < low.avgResponseTime) {
                 low = algo;
             }
         }
